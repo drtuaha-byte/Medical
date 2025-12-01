@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediCare Connect | Online Medical Consultations</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #2a7de1;
+      --secondary: #1a365d;
+      --accent: #00c6ab;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --success: #28a745;
+      --danger: #dc3545;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: var(--primary);
+      font-size: 28px;
+    }
+
+    .logo h1 {
+      font-size: 24px;
+      color: var(--secondary);
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .appointment-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .appointment-btn:hover {
+      background-color: var(--secondary);
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      color: var(--secondary);
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Features Section */
+    .features {
+      padding: 80px 0;
+      background-color: white;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      color: var(--secondary);
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background-color: var(--light);
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background-color: rgba(42, 125, 225, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .feature-icon i {
+      font-size: 30px;
+      color: var(--primary);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 15px;
+      color: var(--secondary);
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background-color: rgba(42, 125, 225, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon i {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .contact-form {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Appointment Section */
+    .appointment {
+      padding: 80px 0;
+      background-color: white;
+    }
+
+    .appointment-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .appointment-info {
+      background-color: var(--secondary);
+      color: white;
+      padding: 40px;
+      border-radius: 10px;
+    }
+
+    .appointment-info h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .appointment-info ul {
+      list-style-type: none;
+      margin-bottom: 30px;
+    }
+
+    .appointment-info li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .appointment-info i {
+      color: var(--accent);
+      margin-top: 5px;
+    }
+
+    .appointment-form {
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      background-color: var(--light);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--secondary);
+      color: white;
+      padding: 60px 0 20px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 2px;
+      background-color: var(--accent);
+    }
+
+    .footer-links {
+      list-style-type: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #b0b7c3;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    .social-links a:hover {
+      background-color: var(--primary);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #b0b7c3;
+      font-size: 14px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      padding: 30px;
+      position: relative;
+      animation: modalFade 0.3s;
+    }
+
+    @keyframes modalFade {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .close-modal:hover {
+      color: var(--dark);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .hero h2 {
+        font-size: 36px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      .hero-btns {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+      }
+
+      .section-title h2 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">
+          <i class="fas fa-heartbeat"></i>
+          <h1>MediCare <span>Connect</span></h1>
+        </div>
+        <div class="nav-links">
+          <a href="#" class="active">Home</a>
+          <a href="#">Services</a>
+          <a href="#">Doctors</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </div>
+        <button class="appointment-btn" id="openAppointmentModal">
+          <i class="fas fa-calendar-check"></i> Book Appointment
+        </button>
+        <div class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h2>Quality Healthcare from the Comfort of Your Home</h2>
+        <p>Connect with licensed medical professionals through secure video consultations. Get prescriptions, medical advice, and follow-up care without leaving your home.</p>
+        <div class="hero-btns">
+          <a href="#" class="btn btn-primary" id="openVideoModal">
+            <i class="fas fa-video"></i> Start Video Consultation
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <i class="fas fa-envelope"></i> Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Why Choose Our Online Service</h2>
+        <p>We provide comprehensive medical care through our secure and easy-to-use platform</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h3>Expert Doctors</h3>
+          <p>Consult with board-certified physicians and specialists with years of experience.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>24/7 Availability</h3>
+          <p>Get medical help anytime, day or night. Our doctors are available around the clock.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Secure & Private</h3>
+          <p>Your medical information is protected with bank-level encryption and privacy measures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact Us</h2>
+        <p>Get in touch with our medical team for any questions or concerns</p>
+      </div>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <h3>Our Location</h3>
+              <p>123 Medical Drive, Health City, HC 12345</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div>
+              <h3>Phone Number</h3>
+              <p>+1 (555) 123-4567</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <h3>Email Address</h3>
+              <p>contact@medicareconnect.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <h3>Working Hours</h3>
+              <p>Monday - Friday: 8:00 AM - 8:00 PM<br>Saturday - Sunday: 9:00 AM - 5:00 PM</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <h3>Send Us a Message</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" class="form-control" placeholder="Subject" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" class="form-control" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointment Section -->
+  <section class="appointment">
+    <div class="container">
+      <div class="section-title">
+        <h2>Book a Video Appointment</h2>
+        <p>Schedule a secure video consultation with one of our medical professionals</p>
+      </div>
+      <div class="appointment-container">
+        <div class="appointment-info">
+          <h3>How It Works</h3>
+          <ul>
+            <li>
+              <i class="fas fa-calendar-check"></i>
+              <div>
+                <h4>Book an Appointment</h4>
+                <p>Choose a date and time that works for you</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-video"></i>
+              <div>
+                <h4>Connect via Video</h4>
+                <p>Join the secure video call at your scheduled time</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-prescription"></i>
+              <div>
+                <h4>Receive Treatment</h4>
+                <p>Get diagnosis, prescriptions, and medical advice</p>
+              </div>
+            </li>
+          </ul>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="appointment-form">
+          <h3>Schedule Your Appointment</h3>
+          <form id="appointmentForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="appointment-name">Full Name</label>
+                <input type="text" id="appointment-name" class="form-control" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <label for="appointment-email">Email Address</label>
+                <input type="email" id="appointment-email" class="form-control" placeholder="Your Email" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="appointment-phone">Phone Number</label>
+                <input type="tel" id="appointment-phone" class="form-control" placeholder="Your Phone" required>
+              </div>
+              <div class="form-group">
+                <label for="appointment-date">Preferred Date</label>
+                <input type="date" id="appointment-date" class="form-control" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="appointment-time">Preferred Time</label>
+              <select id="appointment-time" class="form-control" required>
+                <option value="">Select a time</option>
+                <option value="09:00">9:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="16:00">4:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="appointment-reason">Reason for Visit</label>
+              <textarea id="appointment-reason" class="form-control" placeholder="Briefly describe your symptoms or reason for consultation" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fas fa-calendar-check"></i> Book Appointment
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>MediCare Connect</h3>
+          <p>Providing quality healthcare through secure online consultations with licensed medical professionals.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Doctors</a></li>
+            <li><a href="#">Appointments</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Our Services</h3>
+          <ul class="footer-links">
+            <li><a href="#">Video Consultations</a></li>
+            <li><a href="#">Prescription Refills</a></li>
+            <li><a href="#">Mental Health</a></li>
+            <li><a href="#">Chronic Care</a></li>
+            <li><a href="#">Urgent Care</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact Info</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-map-marker-alt"></i> 123 Medical Drive, Health City</li>
+            <li><i class="fas fa-phone-alt"></i> +1 (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> contact@medicareconnect.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 MediCare Connect. All rights reserved.</p>
+      </div>
+    </div>
+    </section>
+
+    <!-- Appointment Modal -->
+    <div class="modal" id="appointmentModal">
+      <div class="modal-content">
+        <span class="close-modal" id="closeAppointmentModal">&times;</span>
+        <h2>Book Your Appointment</h2>
+        <p>Please fill out the form below to schedule your video consultation.</p>
+        <form>
+          <div class="form-group">
+            <label for="modal-name">Full Name</label>
+            <input type="text" id="modal-name" class="form-control" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-email">Email Address</label>
+            <input type="email" id="modal-email" class="form-control" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-date">Preferred Date</label>
+            <input type="date" id="modal-date" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="modal-time">Preferred Time</label>
+            <select id="modal-time" class="form-control" required>
+              <option value="">Select a time</option>
+              <option value="09:00">9:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="12:00">12:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="15:00">3:00 PM</option>
+              <option value="16:00">4:00 PM</option>
+              <option value="17:00">5:00 PM</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <i class="fas fa-calendar-check"></i> Confirm Appointment
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Video Consultation Modal -->
+    <div class="modal" id="videoModal">
+      <div class="modal-content">
+        <span class="close-modal" id="closeVideoModal">&times;</span>
+        <h2>Start Video Consultation</h2>
+        <p>Connect with a healthcare provider through our secure video platform.</p>
+        <div style="background-color: #f5f5f5; border-radius: 10px; padding: 20px; text-align: center; margin: 20px 0;">
+          <i class="fas fa-video" style="font-size: 50px; color: var(--primary); margin-bottom: 15px;"></i>
+          <h3>Secure Video Call</h3>
+          <p>Your consultation is private and encrypted for your security.</p>
+        </div>
+        <div class="form-group">
+          <label for="video-name">Your Name</label>
+          <input type="text" id="video-name" class="form-control" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="video-reason">Reason for Consultation</label>
+          <textarea id="video-reason" class="form-control" placeholder="Briefly describe your symptoms or reason for consultation" required></textarea>
+        </div>
+        <button class="btn btn-primary" style="width: 100%;">
+          <i class="fas fa-video"></i> Start Video Call
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Modal functionality
+      const appointmentModal = document.getElementById('appointmentModal');
+      const videoModal = document.getElementById('videoModal');
+      const openAppointmentModal = document.getElementById('openAppointmentModal');
+      const closeAppointmentModal = document.getElementById('closeAppointmentModal');
+      const openVideoModal = document.getElementById('openVideoModal');
+      const closeVideoModal = document.getElementById('closeVideoModal');
+      // Open appointment modal
+      openAppointmentModal.addEventListener('click', function() {
+        appointmentModal.style.display = 'flex';
+      });
+      // Close appointment modal
+      closeAppointmentModal.addEventListener('click', function() {
+        appointmentModal.style.display = 'none';
+      });
+      // Open video modal
+      openVideoModal.addEventListener('click', function() {
+        videoModal.style.display = 'flex';
+      });
+      // Close video modal
+      closeVideoModal.addEventListener('click', function() {
+        videoModal.style.display = 'none';
+      });
+      // Close modals when clicking outside
+      window.addEventListener('click', function(event) {
+        if (event.target === appointmentModal) {
+          appointmentModal.style.display = 'none';
+        }
+        if (event.target === videoModal) {
+          videoModal.style.display = 'none';
+        }
+      });
+      // Form submission handling
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        this.reset();
+      });
+      document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Your appointment has been scheduled successfully! We will send a confirmation email shortly.');
+        this.reset();
+      });
+    </script>
+</body>
+
+</html>
